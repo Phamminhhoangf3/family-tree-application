@@ -9,6 +9,13 @@ type FamilyType = {
   childrenIds?: string[];
 };
 
+type FilterType = {
+  keywords?: string;
+  page: number;
+  pageSize: number;
+  [key: string]: any;
+};
+
 const createFamily = async (requestParams: FamilyType) => {
   try {
     const response = await http.post(ENDPOINTS.addFamily, requestParams, {
@@ -35,4 +42,15 @@ const updateFamily = async (id: string, requestParams: FamilyType) => {
   }
 };
 
-export default { createFamily, updateFamily };
+export const getFamilyList = async (requestParams: FilterType) => {
+  try {
+    const response = await http.post(ENDPOINTS.family, requestParams, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default { createFamily, updateFamily, getFamilyList };

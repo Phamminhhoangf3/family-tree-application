@@ -1,6 +1,5 @@
 import Family from '../models/familyModel.js';
 
-// Admin
 const getDetail = async (id, result) => {
   try {
     Family.findOneById(id, result);
@@ -33,13 +32,4 @@ const deleteItem = async (id, result) => {
   }
 };
 
-// Web
-const getView = async (id, result) => {
-  try {
-    Family.getView(id, result);
-  } catch (error) {
-    throw error;
-  }
-};
-
-export default { getDetail, updateItem, deleteItem, createNew, getView };
+export default { getDetail, updateItem, deleteItem, createNew };

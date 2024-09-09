@@ -1,6 +1,6 @@
 import express from 'express';
-import familyController from '../../../controllers/familyController.js';
-import familyValidation from '../../../validations/familyValidation.js';
+import familyController from '../../controllers/familyController.js';
+import familyValidation from '../../validations/familyValidation.js';
 
 const Router = express.Router();
 

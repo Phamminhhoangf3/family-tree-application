@@ -11,8 +11,9 @@ import { ENDPOINTS } from "~/constants/common";
 import { paths } from "~/constants/path";
 import CommonDate from "~/utils/common-date";
 import { tagActive } from "~/utils/tags";
+import { MemberRecordType } from "../members";
 
-type FamilyRecordType = {
+export type FamilyRecordType = {
   _id: string;
   title: string;
   name: string;
@@ -23,6 +24,7 @@ type FamilyRecordType = {
   active: string;
   createdAt: string;
   updatedAt: string;
+  husband: MemberRecordType;
 };
 
 const { Text } = Typography;

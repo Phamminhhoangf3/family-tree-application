@@ -38,8 +38,8 @@ const DetailMember = ({ typePage }: DetailMemberType) => {
     "status",
   ];
 
-  const returnPropItem = () => {
-    const props: PropsItemType = {};
+  const returnPropItem = (name) => {
+    const props: PropsItemType = { name };
     return props;
   };
 
@@ -79,7 +79,7 @@ const DetailMember = ({ typePage }: DetailMemberType) => {
       <FormPage
         detailsData={dataDetails}
         loading={loading || loadingSubmit}
-        title="Tài khoản quản trị"
+        title="Thành viên"
         type={typePage}
         formListItem={getFormListItem(listName, returnPropItem)}
         onSubmit={handleSubmit}

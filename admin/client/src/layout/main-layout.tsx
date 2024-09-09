@@ -17,7 +17,7 @@ const MainLayout = () => {
           <Outlet />
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Trang quản trị ©{new Date().getFullYear()} Created by Phạm Minh Hoàng
+          Admin family ©{new Date().getFullYear()} Created by Phạm Minh Hoàng
         </Footer>
       </Layout>
     </Layout>

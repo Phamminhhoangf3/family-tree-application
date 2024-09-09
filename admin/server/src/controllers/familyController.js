@@ -72,28 +72,6 @@ const getDetail = async (req, res, next) => {
   }
 };
 
-const getView = async (req, res, next) => {
-  try {
-    const id = req.params?.id;
-    if (!id) {
-      res.status(StatusCodes.BAD_REQUEST).send({
-        message: 'Nội dung không được để trống!'
-      });
-    }
-    familyService.getView(id, (error, data) => {
-      if (error) {
-        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-          message: error.message || 'Có lỗi xảy ra!'
-        });
-      } else {
-        res.status(StatusCodes.OK).json(data);
-      }
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getList = async (req, res, next) => {
   try {
     if (!req.body) {
@@ -148,4 +126,4 @@ const deleteItem = async (req, res, next) => {
   }
 };
 
-export default { createNew, getDetail, getList, updateItem, deleteItem, getView };
+export default { createNew, getDetail, getList, updateItem, deleteItem };

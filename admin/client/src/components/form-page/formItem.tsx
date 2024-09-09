@@ -11,6 +11,9 @@ import DebounceSelect from "../form/debounceSelect";
 import { GENDER } from "~/common/enum";
 import { Avatar, Space, Typography } from "antd";
 import { MemberRecordType } from "~/pages/members";
+import dayjs from "dayjs";
+import { getFamilyList } from "~/services/apis/family";
+import { FamilyRecordType } from "~/pages/family";
 
 const { Text } = Typography;
 
@@ -110,15 +113,29 @@ const formItems: FormItemsType = {
     name,
     col: 6,
     value: null,
-    control: ({ form, type }) => (
-      <FormSelect
-        _name={name}
-        disabled={type === "detail"}
-        form={form}
-        options={[]}
-        label="Gia đình"
-        allowClear
+    control: ({ form: { watch, setValue }, type }) => (
+      <DebounceSelect
+        showSearch
+        style={{ width: "100%" }}
+        label="Gia đình:"
         placeholder="Chọn gia đình"
+        value={watch(name)}
+        disabled={type === "detail"}
+        fetchOptions={(filter) => getFamilyList({ ...filter, status: true })}
+        onChange={(newValue) => {
+          setValue(name, newValue?.value);
+        }}
+        handleResponse={(member: FamilyRecordType) => ({
+          label: member?.husband?.name,
+          value: member?._id,
+          image: member?.husband?.image,
+        })}
+        optionRender={(option: any) => (
+          <Space>
+            <Avatar src={option?.data?.image} />
+            <Text>{option?.label}</Text>
+          </Space>
+        )}
       />
     ),
   }),
@@ -148,15 +165,17 @@ const formItems: FormItemsType = {
     name,
     col: 6,
     value: "",
-    control: ({ form, type }) => (
+    control: ({ form: { setValue, register, watch }, type }) => (
       <FormDatePicker
         disabled={type === "detail"}
         label="Ngày sinh"
-        form={form}
-        name={name}
-        {...form.register(name, {
+        {...register(name, {
           required: "Vui lòng chọn ngày sinh!",
         })}
+        onChange={(_, dateString) => {
+          setValue(name, dateString);
+        }}
+        value={watch(name) ? dayjs(watch(name)) : null}
       />
     ),
   }),
@@ -165,15 +184,17 @@ const formItems: FormItemsType = {
     name,
     col: 6,
     value: "",
-    control: ({ form, type }) => (
+    control: ({ form: { setValue, register, watch }, type }) => (
       <FormDatePicker
         disabled={type === "detail"}
         label="Ngày mất"
-        form={form}
-        name={name}
-        {...form.register(name, {
+        {...register(name, {
           required: "Vui lòng chọn ngày mất!",
         })}
+        onChange={(_, dateString) => {
+          setValue(name, dateString);
+        }}
+        value={watch(name) ? dayjs(watch(name)) : null}
       />
     ),
   }),
@@ -305,7 +326,7 @@ const formItems: FormItemsType = {
         placeholder="Chọn chồng"
         value={watch(name)}
         fetchOptions={(filter) =>
-          getMemberList({ ...filter, gender: GENDER.MALE })
+          getMemberList({ ...filter, gender: GENDER.MALE, status: true })
         }
         onChange={(newValue) => {
           setValue(name, newValue?.value);
@@ -337,7 +358,7 @@ const formItems: FormItemsType = {
         style={{ width: "100%" }}
         value={watch(name)}
         fetchOptions={(filter) =>
-          getMemberList({ ...filter, gender: GENDER.FEMALE })
+          getMemberList({ ...filter, gender: GENDER.FEMALE, status: true })
         }
         onChange={(newValue) => {
           setValue(name, newValue?.value);
@@ -369,7 +390,7 @@ const formItems: FormItemsType = {
         style={{ width: "100%" }}
         value={watch(name)}
         fetchOptions={(filter) =>
-          getMemberList({ ...filter, gender: GENDER.FEMALE })
+          getMemberList({ ...filter, gender: GENDER.FEMALE, status: true })
         }
         onChange={(newValue) => {
           setValue(name, newValue?.value);
@@ -401,7 +422,7 @@ const formItems: FormItemsType = {
         placeholder="Chọn con"
         style={{ width: "100%" }}
         value={watch(name)}
-        fetchOptions={getMemberList}
+        fetchOptions={(filter) => getMemberList({ ...filter, status: true })}
         onChange={(items) => {
           const values = items?.length ? items?.map((item) => item?.value) : [];
           setValue(name, values);

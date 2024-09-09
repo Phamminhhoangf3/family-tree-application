@@ -35,14 +35,14 @@ const FormPage = (props: FormPageType) => {
   } = props;
 
   const navigate = useNavigate();
-  const defaultvalues = formListItem.reduce((acc, curr) => {
+  const defaultValues = formListItem.reduce((acc, curr) => {
     acc[curr.key] = curr.value;
     return acc;
   }, {});
 
   const form = useForm({
     mode: "onSubmit",
-    defaultValues: defaultvalues,
+    defaultValues,
   });
 
   const {
