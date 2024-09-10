@@ -11,6 +11,8 @@ export const secretKey = generateSecretKey(32);
 export const ROOT_URL = import.meta.env.VITE_ROOT_URL;
 
 export const ENDPOINTS = Object.freeze({
+  // Home
+  dashboard: `${ROOT_URL}/v1/dashboard`,
   // User
   user: `${ROOT_URL}/v1/users`,
   addUser: `${ROOT_URL}/v1/users/add`,

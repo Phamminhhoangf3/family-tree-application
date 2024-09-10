@@ -58,7 +58,7 @@ const getDetail = async (req, res, next) => {
         message: 'Nội dung không được để trống!'
       });
     }
-    Family.findOneById(req.params?.id, (error, data) => {
+    familyService.getDetail(req.params?.id, (error, data) => {
       if (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
           message: error.message || 'Có lỗi xảy ra!'
@@ -79,7 +79,7 @@ const getList = async (req, res, next) => {
         message: 'Nội dung không được để trống!'
       });
     }
-    Family.findAll(req.body, (error, data) => {
+    familyService.getList(req.body, (error, data) => {
       if (error) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
           message: error.message || 'Có lỗi xảy ra!'

@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
       onSuccess: () => {
         setLoading(false);
         setIsAuthenticated(true);
-        navigate(paths.users);
+        navigate(paths.home);
       },
       onError: (error) => {
         setLoading(false);

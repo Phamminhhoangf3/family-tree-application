@@ -1,5 +1,13 @@
 import Family from '../models/familyModel.js';
 
+const getList = async (id, result) => {
+  try {
+    Family.findAll(id, result);
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getDetail = async (id, result) => {
   try {
     Family.findOneById(id, result);
@@ -32,4 +40,4 @@ const deleteItem = async (id, result) => {
   }
 };
 
-export default { getDetail, updateItem, deleteItem, createNew };
+export default { getDetail, updateItem, deleteItem, createNew, getList };
