@@ -68,7 +68,11 @@ const PageCommonList = (props: PageCommonListType) => {
 
   const handleData = (data) => {
     if (!data || !data?.length) return [];
-    return data.map((item) => ({ ...item, key: item?._id }));
+    return data.map((item, index) => ({
+      ...item,
+      key: item?._id,
+      stt: index + 1,
+    }));
   };
 
   return (

@@ -1,8 +1,10 @@
+import { Skeleton } from "antd";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts";
 
 type ChartPieType = {
   data: DataChartPieType[];
   outerRadius: number;
+  loading: boolean;
 };
 
 type DataChartPieType = {
@@ -10,7 +12,7 @@ type DataChartPieType = {
   value: number;
 };
 
-const ChartPie = ({ data, outerRadius }: ChartPieType) => {
+const ChartPie = ({ data, outerRadius, loading }: ChartPieType) => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   const RADIAN = Math.PI / 180;
 
@@ -39,31 +41,36 @@ const ChartPie = ({ data, outerRadius }: ChartPieType) => {
   };
   if (!data?.length) return null;
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
-        <Pie
-          data={data}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          label={renderCustomizedLabel}
-          outerRadius={outerRadius}
-          fill="#8884d8"
-          dataKey="value"
-          legendType="line"
-        >
-          {data.map((_, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-        <Legend
-          iconType="square"
-          layout="horizontal"
-          verticalAlign="bottom"
-          wrapperStyle={{ bottom: 20 }}
-        />
-      </PieChart>
-    </ResponsiveContainer>
+    <Skeleton active loading={loading}>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={outerRadius}
+            fill="#8884d8"
+            dataKey="value"
+            legendType="line"
+          >
+            {data.map((_, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+          <Legend
+            iconType="square"
+            layout="horizontal"
+            verticalAlign="bottom"
+            wrapperStyle={{ bottom: 20 }}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </Skeleton>
   );
 };
 export default ChartPie;

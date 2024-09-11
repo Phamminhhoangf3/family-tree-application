@@ -2,14 +2,14 @@ import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
 import AntdBreadcrumb from "~/components/breadcrumnd";
 import HeaderLayout from "~/components/layout/header";
+import { dataMenu } from "~/components/navbar/dataMenu";
 import NavbarNested from "~/components/navbar/nav-bar";
-
 const { Content, Footer } = Layout;
 
 const MainLayout = () => {
   return (
     <Layout style={{ minHeight: "100vh", minWidth: "100vw" }}>
-      <NavbarNested />
+      <NavbarNested data={dataMenu} />
       <Layout>
         <HeaderLayout />
         <Content style={{ margin: "0 16px" }}>

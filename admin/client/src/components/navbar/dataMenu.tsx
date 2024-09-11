@@ -6,7 +6,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 
-type dataMenuType = {
+export type dataMenuType = {
   label: string;
   icon: React.ReactNode;
   url: string;

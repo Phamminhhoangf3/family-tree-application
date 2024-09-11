@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { Button, Space, Typography } from "antd";
+import { Button, Space } from "antd";
 import { ColumnType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
 import { APCLType } from "~/components/PageCommonList/pageCommonList.type";
@@ -12,11 +12,10 @@ const useColumnsTable = <T,>(
   const navigate = useNavigate();
   const firstColumn = {
     title: "STT",
-    dataIndex: "id",
+    dataIndex: "stt",
     width: "50px",
     align: "center",
     fixed: "left",
-    render: (_, __, index) => <Typography.Text>{index + 1}</Typography.Text>,
   };
 
   const renderColumnAction = (id: string, record: any) => {

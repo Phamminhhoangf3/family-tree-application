@@ -1,17 +1,19 @@
-import { Card, Col, Flex, Row, Typography } from "antd";
+import { Card, Col, Flex, Row, Skeleton, Typography } from "antd";
 import ChartPie from "~/components/chart/ChartPie";
 import { ENDPOINTS } from "~/constants/common";
 import { useFetchData } from "~/hook/useFetchData";
 
 const { Text, Title } = Typography;
 const Home = () => {
-  const renderTotal = (value) => (
+  const renderTotal = (value, isLoading) => (
     <Flex justify="space-between">
-      <Title level={4}>{value || null}</Title>
+      <Skeleton active loading={isLoading} paragraph={{ rows: 0 }}>
+        <Title level={4}>{value || null}</Title>
+      </Skeleton>
     </Flex>
   );
 
-  const { data } = useFetchData({
+  const { data, loading } = useFetchData({
     endpoint: ENDPOINTS.dashboard,
   });
 
@@ -19,13 +21,13 @@ const Home = () => {
     {
       key: 1,
       title: "Tổng số gia đình",
-      value: renderTotal(data?.totalFamily),
+      value: renderTotal(data?.totalFamily, loading),
       span: 6,
     },
     {
       key: 2,
       title: "Tổng số thành viên",
-      value: renderTotal(data?.totalMember),
+      value: renderTotal(data?.totalMember, loading),
       span: 6,
     },
     {
@@ -41,7 +43,11 @@ const Home = () => {
       title: "Tỷ lệ giới tính",
       value: (
         <div className="w-full aspect-square">
-          <ChartPie data={data?.genderRatio} outerRadius={70} />
+          <ChartPie
+            data={data?.genderRatio}
+            outerRadius={70}
+            loading={loading}
+          />
         </div>
       ),
       span: 6,
