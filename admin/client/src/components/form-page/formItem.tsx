@@ -14,6 +14,7 @@ import { MemberRecordType } from "~/pages/members";
 import dayjs from "dayjs";
 import { getFamilyList } from "~/services/apis/family";
 import { FamilyRecordType } from "~/pages/family";
+import UploadImage from "../upload/uploadImg";
 
 const { Text } = Typography;
 
@@ -93,18 +94,17 @@ const formItems: FormItemsType = {
     name,
     col: 6,
     value: "",
-    control: ({ form, type }) => (
-      <FormInput
-        name={name}
-        form={form}
-        defaultValue=""
-        label="Hình"
-        placeholder="Nhập đường dẫn hình"
+    control: ({ form: { setValue, watch }, type }) => (
+      <UploadImage
+        label="Hình ảnh:"
         disabled={type === "detail"}
-        allowClear
-        {...form.register(name, {
-          required: "Vui lòng nhập đường dẫn hình!",
-        })}
+        onUploaded={(value) => {
+          setValue(name, value);
+        }}
+        value={watch(name)}
+        onRemove={() => {
+          setValue(name, "");
+        }}
       />
     ),
   }),
