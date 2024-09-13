@@ -6,7 +6,6 @@ import "@/styles/components/body.css";
 import "@/styles/components/footer.css";
 import "@/styles/components/section-1.css";
 import "@/styles/components/section-2.css";
-import "@/styles/components/section-3.css";
 import "@/styles/components/member.css";
 import "@/styles/components/tree.css";
 import "@/styles/components/form-page.css";
