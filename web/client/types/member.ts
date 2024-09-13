@@ -22,6 +22,7 @@ export interface ChildrenDto {
   image: string;
   family: FamilyDto;
   dad: string;
+  gender: GENDER_MEMBER;
 }
 
 export interface FamilyDto {
@@ -39,3 +40,8 @@ export interface RequestDto {
 }
 
 export type TypeMember = "husband" | "wife" | "exWife" | "children";
+
+export enum GENDER_MEMBER {
+  MALE = "male",
+  FEMALE = "female",
+}

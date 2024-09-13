@@ -15,17 +15,19 @@ const Parent = ({ data }: ParentType) => {
 
   return (
     <div className="row">
-      <div className={renderClass(data)}>
-        <MemberCard data={data} title="husband" selected />
-      </div>
-      {!!data?.wife && !!data?.husband && (
+      {data?.husband && (
+        <div className={renderClass(data)}>
+          <MemberCard data={data.husband} title="husband" selected />
+        </div>
+      )}
+      {!!data?.wife && (
         <div className="sticky">
-          <MemberCard data={data} title="wife" />
+          <MemberCard data={data.wife} title="wife" />
         </div>
       )}
       {!!data?.exWife && (
         <div className="sticky">
-          <MemberCard data={data} title="exWife" />
+          <MemberCard data={data.exWife} title="ex-Wife" />
         </div>
       )}
     </div>

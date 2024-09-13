@@ -1,5 +1,5 @@
-import { ChildrenDto, FamilyDto } from "@/types/member";
-import MemberCard from "../../member";
+import { ChildrenDto } from "@/types/member";
+import MemberCard, { MemberCardType } from "../../member";
 import { groupByThree } from "@/utils";
 
 type ChildrenType = {
@@ -7,8 +7,10 @@ type ChildrenType = {
   handleChildren: (data: any) => void;
 };
 
-const Childrens = ({ data, handleChildren }: ChildrenType) => {
+const Children = ({ data, handleChildren }: ChildrenType) => {
   const groupChildren = !!data?.length ? groupByThree(data) : [];
+  const title = { male: "son", female: "daughter" };
+  const renderTitle = (children: ChildrenDto) => title[children?.gender];
 
   return (
     <>
@@ -22,7 +24,11 @@ const Childrens = ({ data, handleChildren }: ChildrenType) => {
                   key={child?._id}
                 >
                   <div className={"sticky children" + (i == 0 ? " next" : "")}>
-                    <MemberCard data={child} handleChildren={handleChildren} />
+                    <MemberCard
+                      title={renderTitle(child) as MemberCardType["title"]}
+                      data={child}
+                      handleChildren={handleChildren}
+                    />
                   </div>
                 </li>
               ))}
@@ -33,4 +39,4 @@ const Childrens = ({ data, handleChildren }: ChildrenType) => {
   );
 };
 
-export default Childrens;
+export default Children;
