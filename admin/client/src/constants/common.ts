@@ -31,6 +31,8 @@ export const ENDPOINTS = Object.freeze({
   deleteFamily: `${ROOT_URL}/v1/family/delete`,
   updateFamily: `${ROOT_URL}/v1/family/update`,
   detailFamily: `${ROOT_URL}/v1/family/detail`,
+  //upload
+  uploadImage: `${ROOT_URL}/uploadImage`,
   // Auth
   login: `${ROOT_URL}/v1/auth/login`,
   logout: `${ROOT_URL}/v1/auth/logout`,

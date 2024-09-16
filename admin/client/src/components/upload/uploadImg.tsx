@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Image, Typography, Upload } from "antd";
 import type { GetProp, UploadFile, UploadProps } from "antd";
-import { storage } from "~/FirebaseConfig";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { UploadFileStatus } from "antd/es/upload/interface";
+import { uploadImage } from "~/services/apis/upload";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -50,39 +49,29 @@ const UploadImage: React.FC<UploadImageProps> = ({
   }, [value]);
 
   const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
+    const formData = new FormData();
     newFileList.forEach((file) => {
-      if (file.originFileObj) {
-        handleUpload(file.originFileObj as FileType);
+      if (file?.originFileObj) {
+        formData.append("image", file.originFileObj);
       }
     });
+    handleUpload(formData);
   };
 
-  const handleUpload = (file: FileType) => {
-    setLoading(true);
-    const storageRef = ref(storage, `images/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-    uploadTask.on(
-      "state_changed",
-      () => {},
-      (error) => {
-        console.error(error);
-        setLoading(false);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setLoading(false);
-          onUploaded(downloadURL);
-          setFileList([
-            {
-              uid: file.uid,
-              name: file.name,
-              status: "done",
-              url: downloadURL,
-            },
-          ]);
-        });
+  const handleUpload = async (formData) => {
+    try {
+      setLoading(true);
+      const res = await uploadImage(formData);
+      if (res?.status === 200) {
+        const imageUrl = res?.data?.imageUrl;
+        if (imageUrl) {
+          onUploaded(imageUrl);
+        }
       }
-    );
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const uploadButton = (
