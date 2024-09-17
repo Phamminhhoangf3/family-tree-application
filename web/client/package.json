@@ -18,10 +18,12 @@
     "@mui/x-tree-view": "^7.5.1",
     "@tanstack/react-query": "^5.51.23",
     "axios": "^1.7.3",
+    "blurhash": "^2.0.5",
     "dayjs": "^1.11.12",
     "nanoid": "^5.0.7",
     "next": "14.2.3",
     "react": "^18",
+    "react-blurhash": "^0.3.0",
     "react-dom": "^18",
     "react-hook-form": "^7.51.5"
   },

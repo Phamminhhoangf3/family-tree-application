@@ -1,6 +1,6 @@
-import Image from "next/image";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import CommonDate from "@/utils/common-date";
+import LazyImage from "./lazyImage";
 
 export type MemberCardType = {
   title: "husband" | "wife" | "ex-Wife" | "son";
@@ -19,7 +19,7 @@ const MemberCard = ({
     <div className="member-card">
       <div className="tag">{title}</div>
       <div className="avatar">
-        <Image src={data?.image} alt={data?.name} fill />
+        <LazyImage src={data?.image} width={280} height={280} />
       </div>
       <div className={"information" + (selected ? " selected" : "")}>
         <div className="full-name">
