@@ -1,4 +1,4 @@
-import Swal from "sweetalert2";
+import Swal from "sweetalert2/src/sweetalert2";
 import http from "~/common/http";
 
 export const verifyDelete = ({ name, endpoint, refetchList }) => {

@@ -5,14 +5,14 @@ import MainLayout from "~/layout/main-layout";
 import { useAuth } from "~/authProvider";
 import AuthLayout from "~/layout/auth";
 import React from "react";
+import Users from "~/pages/users";
+import DetailUser from "~/pages/users/detail";
+import Members from "~/pages/members";
+import DetailMember from "~/pages/members/detail";
+import DetailFamily from "~/pages/family/detail";
+import Family from "~/pages/family";
 
 const Home = React.lazy(() => import("~/pages/home"));
-const Members = React.lazy(() => import("~/pages/members"));
-const Users = React.lazy(() => import("~/pages/users"));
-const Family = React.lazy(() => import("~/pages/family"));
-const DetailFamily = React.lazy(() => import("~/pages/family/detail"));
-const DetailMember = React.lazy(() => import("~/pages/members/detail"));
-const DetailUser = React.lazy(() => import("~/pages/users/detail"));
 
 const RejectedRoute = () => {
   const { isAuthenticated } = useAuth();
