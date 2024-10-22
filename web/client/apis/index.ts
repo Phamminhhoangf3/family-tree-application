@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DetailFamilyType } from "@/types/family";
+import { FamilyDto } from "@/types/member";
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_URL + "/v1/",
@@ -8,7 +8,7 @@ export const api = axios.create({
   },
 });
 
-export const getDetailFamily = async (params: DetailFamilyType) => {
-  const response = await api.get(`family/view/${params?.id}`);
+export const getDetailFamily = async (id: string): Promise<FamilyDto> => {
+  const response = await api.get(`family/view/${id}`);
   return response.data;
 };

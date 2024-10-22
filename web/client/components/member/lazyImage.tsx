@@ -32,7 +32,7 @@ const LazyImage = ({
         width={width}
         height={height}
         alt="Image with Blurhash"
-        onLoadingComplete={() => setIsLoading(false)}
+        onLoad={() => setIsLoading(false)}
       />
     </div>
   );

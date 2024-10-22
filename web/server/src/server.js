@@ -24,7 +24,7 @@ const START_SERVER = () => {
 
   app.use('/v1', APIs_V1);
 
-  app.get('/', (req, res) => res.send('Wellcome to api admin!'));
+  app.get('/', (req, res) => res.send('Welcome to api admin!'));
 
   if (env.BUILD_MODE === 'production') {
     app.listen(process.env.PORT, () => {

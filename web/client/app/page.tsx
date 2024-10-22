@@ -6,15 +6,12 @@ import Section1 from "@/components/section-1";
 import Section2 from "@/components/section-2";
 import TransitionHooks from "@/components/collapse";
 import Section3 from "@/components/section-3";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { store } from "@/redux/store";
+import { Provider } from "react-redux";
 
 export default function Home() {
-  const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
       <Layout>
         <Section1 />
         <TransitionHooks>
@@ -22,6 +19,6 @@ export default function Home() {
         </TransitionHooks>
         <Section3 />
       </Layout>
-    </QueryClientProvider>
+    </Provider>
   );
 }

@@ -21,8 +21,9 @@ export interface ChildrenDto {
   date: string;
   image: string;
   family: FamilyDto;
-  dad: string;
+  dadId: string;
   gender: GENDER_MEMBER;
+  familyId: string;
 }
 
 export interface FamilyDto {

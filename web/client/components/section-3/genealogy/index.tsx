@@ -1,45 +1,36 @@
-import { FamilyDto, RequestDto } from "@/types/member";
+import { ChildrenDto } from "@/types/member";
 import { useEffect, useState } from "react";
 import Family from "../family";
-import { useMutation } from "@tanstack/react-query";
-import { getDetailFamily } from "@/apis";
-import { DetailFamilyType } from "@/types/family";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearLastFamily,
+  fetchFamilyRequest,
+} from "@/redux/slices/familySlice";
 
 const Genealogy = () => {
   const familyIdFirst = process.env.NEXT_PUBLIC_FAMILY_ID_FIRST || "";
-  const [families, setFamilies] = useState<FamilyDto[]>([]);
-  const [request, setRequest] = useState<RequestDto>({
-    familyId: familyIdFirst,
-    dadId: "",
-  });
+  const [dadId, setDadId] = useState("");
+  const dispatch = useDispatch();
+  const families = useSelector((state: any) => state.families.families);
 
-  const { mutate } = useMutation({
-    mutationFn: async (params: DetailFamilyType) =>
-      await getDetailFamily(params),
-    onSuccess: (data) => {
-      if (data) setFamilies((prev) => [...prev, data]);
-    },
-  });
-
-  const handleAppendFamily = (member: any) => {
+  const handleAppendFamily = (member: ChildrenDto) => {
+    setDadId(member?.dadId);
     if (!member?.familyId) return;
     // clear last family when with father
-    if (request.dadId === member?.dadId) {
-      const familiesNew = families.slice(0, families.length - 1);
-      setFamilies(familiesNew);
+    if (dadId === member?.dadId) {
+      dispatch(clearLastFamily());
     }
-    setRequest({ familyId: member?.familyId, dadId: member?.dadId });
+    dispatch(fetchFamilyRequest(member.familyId));
   };
 
   useEffect(() => {
-    mutate({ id: request.familyId });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [request]);
+    dispatch(fetchFamilyRequest(familyIdFirst));
+  }, []);
 
   return (
     <ul className="tree">
       {!!families?.length &&
-        families.map((item, index) => (
+        families.map((item: any, index: number) => (
           <Family
             data={item}
             key={index}
